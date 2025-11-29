@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Text Heart</title>
+
+  <!-- Optional: nice font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont;
+      overflow: hidden;
+    }
+
+    /* Main wrapper */
+    #ui {
+      position: relative;
+      width: 420px;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+
+    /* Heart SVG itself */
+    .heart-wrap {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 18px #ff9bd0);
+      transform-style: preserve-3d;
+      animation: spin 12s linear infinite;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Text styling – similar to screenshot */
+    #ui .love_word {
+      color: #ea80b0;
+      font-size: 1.4rem;
+      text-shadow: 0 0 10px #fff;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    text {
+      fill: #ea80b0;
+      font-size: 16px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    /* Multiple “layers” of text for depth */
+    .layer-1 { opacity: 1; }
+    .layer-2 { opacity: 0.6; }
+    .layer-3 { opacity: 0.3; }
+
+    /* Give each text layer a horizontal “wave” animation */
+    .love_horizontal {
+      animation: horizontal 10000ms infinite alternate ease-in-out;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+    @keyframes spin {
+      0% {
+        transform: perspective(900px) rotateY(-30deg) rotateX(18deg);
+      }
+      50% {
+        transform: perspective(900px) rotateY(30deg) rotateX(-8deg);
+      }
+      100% {
+        transform: perspective(900px) rotateY(-30deg) rotateX(18deg);
+      }
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(10px); }
+      100% { transform: translateY(-10px); }
+    }
+
+    @keyframes horizontal {
+      0%   { letter-spacing: 2px; }
+      50%  { letter-spacing: 6px; }
+      100% { letter-spacing: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="ui">
+    <div class="heart-wrap">
+      <!-- SVG Heart made of text -->
+      <svg viewBox="0 0 500 500">
+        <defs>
+          <!-- Heart path -->
+          <path id="heartPath"
+            d="M250 430
+               C 70 320, 40 200, 120 140
+               C 190 90,  250 150, 250 170
+               C 250 150, 310 90,  380 140
+               C 460 200, 430 320, 250 430 Z" />
+        </defs>
+
+        <!-- FRONT text layer -->
+        <text class="love_word love_horizontal layer-1" style="--i:0">
+          <textPath href="#heartPath" startOffset="0%">
+            I love you • I love you • I love you • I love you • I love you • I love you • I love you •
+          </textPath>
+        </text>
+
+        <!-- Slightly shifted layer to mimic thickness -->
+        <text class="love_word love_horizontal layer-2" dy="-6" style="--i:1">
+          <textPath href="#heartPath" startOffset="20%">
+            I love you • I love you • I love you • I love you • I love you • I love you • I love you •
+          </textPath>
+        </text>
+
+        <!-- Another layer even softer -->
+        <text class="love_word love_horizontal layer-3" dy="-12" style="--i:2">
+          <textPath href="#heartPath" startOffset="40%">
+            I love you • I love you • I love you • I love you • I love you • I love you • I love you •
+          </textPath>
+        </text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
